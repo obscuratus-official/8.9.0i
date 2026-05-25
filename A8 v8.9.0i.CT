@@ -1,0 +1,2528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>22473</ID>
+      <Description>"Connect Game + Full View Mode"</Description>
+      <Color>008000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+LuaCall(openProcess("Asphalt8.exe"))
+LuaCall(function cycleFullCompact(sender,force) local state = not(compactmenuitem.Caption == 'Compact View Mode'); if force~=nil then state = not force end; compactmenuitem.Caption = state and 'Compact View Mode' or 'Full View Mode'; getMainForm().Splitter1.Visible = state; getMainForm().Panel4.Visible    = state; getMainForm().Panel5.Visible    = state; end; function addCompactMenu() if compactmenualreadyexists then return end; local parent = getMainForm().Menu.Items; compactmenuitem = createMenuItem(parent); parent.add(compactmenuitem); compactmenuitem.Caption = 'Compact View Mode'; compactmenuitem.OnClick = cycleFullCompact; compactmenualreadyexists = 'yes'; end; addCompactMenu(); cycleFullCompact(nil,true))
+{$lua}
+shellExecute("https://youtu.be/N7rXC3nJ7Wk")
+{$asm}
+[DISABLE]
+LuaCall(cycleFullCompact(nil,false))
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22426</ID>
+      <Description>"Asphalt 8: Airborne in ( v8.9.0i )"</Description>
+      <Options moHideChildren="1"/>
+      <Color>FF0000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>29680</ID>
+          <Description>"Money\Credits Hacks"</Description>
+          <Options moHideChildren="1"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>008000</Color>
+          <GroupHeader>1</GroupHeader>
+          <Address>.3.</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>24273</ID>
+              <Description>"1st Credits Amount"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>define(address,Asphalt8.exe+1106FE)
+define(bytes,8B 84 98 B0 00 00 00)
+
+[ENABLE]
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+1106FE)
+alloc(1st_credits_amount,4)
+label(code)
+label(return)
+registersymbol(1st_credits_amount)
+
+newmem:
+push rsi
+mov rsi,[1st_credits_amount]
+mov [rax+rbx*4+000000B0],rsi
+pop rsi
+
+code:
+mov eax,[rax+rbx*4+000000B0]
+jmp return
+
+1st_credits_amount:
+dd #80000000
+
+address:
+jmp newmem
+nop 2
+return:
+
+[DISABLE]
+address:
+db bytes
+dealloc(newmem)
+dealloc(1st_credits_amount)
+unregistersymbol(1st_credits_amount)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>24274</ID>
+                  <Description>"Write Amount"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>1st_credits_amount</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>29686</ID>
+              <Description>"Free Buy Mode"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>define(address,Asphalt8.exe+FC210)
+define(bytes,8B 41 30 C3 CC)
+
+[ENABLE]
+assert(address,bytes)
+alloc(Asphalt8,$1000,Asphalt8.exe+FC210)
+label(Money_Mod)
+label(return)
+
+Asphalt8:
+
+Money_Mod:
+mov [rcx+30],#100
+mov eax,[rcx+30]
+ret
+int 3
+jmp return
+
+address:
+jmp Asphalt8
+return:
+
+[DISABLE]
+address:
+db bytes
+dealloc(Asphalt8)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22443</ID>
+              <Description>"Credits/Money Mode"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+FC210)
+define(bytes,8B 41 30 C3 CC)
+assert(address,bytes)
+alloc(Asphalt8,$1000,Asphalt8.exe+FC210)
+label(Money_Mod)
+label(return)
+
+Asphalt8:
+
+Money_Mod:
+mov [rcx+30],#0
+mov eax,[rcx+30]
+ret
+int 3
+jmp return
+
+address:
+jmp Asphalt8
+return:
+
+[DISABLE]
+Asphalt8.exe+FC210:
+db 8B 41 30 C3 CC
+dealloc(Asphalt8)
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>29682</ID>
+          <Description>"Online Hacks"</Description>
+          <Options moHideChildren="1"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>000080</Color>
+          <GroupHeader>1</GroupHeader>
+          <Address>.25.</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>22266</ID>
+              <Description>"Enable Boosters"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+EF39CD)
+define(bytes,49 8D 0C 1E 89 44 24 20)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+EF39CD)
+label(code)
+label(return)
+
+newmem:
+mov eax,#1
+
+code:
+lea rcx,[r14+rbx]
+mov [rsp+20],eax
+jmp return
+
+address:
+jmp newmem
+nop 3
+return:
+
+[DISABLE]
+"Asphalt8.exe"+EF39CD:
+db 49 8D 0C 1E 89 44 24 20
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>25531</ID>
+              <Description>"Pro All Cars &amp; MotorBikes"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+46CFFB)
+define(bytes,8B 04 31 42 89 04 39)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+46CFFB)
+label(code)
+label(return)
+
+newmem:
+mov [rcx+rsi],#10   // Bykes
+mov [rcx+rsi+10],#10  // Cars
+
+code:
+mov eax,[rcx+rsi]
+mov [rcx+r15],eax
+jmp return
+
+address:
+jmp newmem
+nop 2
+return:
+
+[DISABLE]
+"Asphalt8.exe"+46CFFB:
+db 8B 04 31 42 89 04 39
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22014</ID>
+              <Description>"Hulk Mode / Speed Hack"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1308</ID>
+                  <Description>"Green Mode"</Description>
+                  <Color>FF0080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+"Asphalt8.exe"+470B10:
+db 90 90 90 90 90 90 90
+
+[DISABLE]
+"Asphalt8.exe"+470B10:
+db 0F B6 81 5C 04 00 00
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>27256</ID>
+                  <Description>"Add Speed "</Description>
+                  <Options moHideChildren="1"/>
+                  <Color>FF0080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+47460D)
+define(bytes,F3 0F 5F 83 3C 02 00 00)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+47460D)
+alloc(AddSpeed,4)
+label(code)
+label(return)
+registersymbol(AddSpeed)
+
+newmem:
+push rax
+mov rax,[AddSpeed]
+imul rax,#23000   // Convert Speed Multiplier
+add [rbx+0000023C],rax // Add Speed
+pop rax
+
+code:
+maxss xmm0,[rbx+0000023C]
+jmp return
+
+AddSpeed:
+dd (int)35
+
+address:
+jmp newmem
+nop 3
+return:
+
+[DISABLE]
+"Asphalt8.exe"+47460D:
+db F3 0F 5F 83 3C 02 00 00
+dealloc(newmem)
+dealloc(AddSpeed)
+unregistersymbol(AddSpeed)
+</AssemblerScript>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>27308</ID>
+                      <Description>"Write Speed"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>AddSpeed</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>28220</ID>
+              <Description>"Unlock Exclusive Events "</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Asphalt8.exe
+  Version: 
+  Date   : 2025-03-19
+  Author : Asuna2
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+define(address,"Asphalt8.exe"+649445)
+define(bytes,0F 84 DE 01 00 00)
+
+address+1:
+db 85
+
+
+[DISABLE]
+"Asphalt8.exe"+125AFD+1:
+db 84
+
+// 0F 84 ?? ?? 00 00 80 ?? ?? ?? 00 0F 85
+{
+// ORIGINAL CODE - INJECTION POINT: Asphalt8.exe+5E6041
+
+Asphalt8.exe+5E6020: 90                          - nop
+Asphalt8.exe+5E6021: E9 5D 09 00 00              - jmp Asphalt8.exe+5E6983
+Asphalt8.exe+5E6026: 0F 57 C0                    - xorps xmm0,xmm0
+Asphalt8.exe+5E6029: 0F 11 45 A0                 - movups [rbp-60],xmm0
+Asphalt8.exe+5E602D: 48 8D 55 A0                 - lea rdx,[rbp-60]
+Asphalt8.exe+5E6031: 49 8B 0E                    - mov rcx,[r14]
+Asphalt8.exe+5E6034: E8 47 91 04 00              - call Asphalt8.exe+62F180
+Asphalt8.exe+5E6039: 90                          - nop
+Asphalt8.exe+5E603A: 48 8B 4D A0                 - mov rcx,[rbp-60]
+Asphalt8.exe+5E603E: 48 85 C9                    - test rcx,rcx
+// ---------- INJECTING HERE ----------
+Asphalt8.exe+5E6041: 0F 84 DE 01 00 00           - je Asphalt8.exe+5E6225
+// ---------- DONE INJECTING  ----------
+Asphalt8.exe+5E6047: 80 7C 24 40 00              - cmp byte ptr [rsp+40],00
+Asphalt8.exe+5E604C: 0F 85 DE 01 00 00           - jne Asphalt8.exe+5E6230
+Asphalt8.exe+5E6052: E8 99 DB 92 00              - call Asphalt8.exe+F13BF0
+Asphalt8.exe+5E6057: 84 C0                       - test al,al
+Asphalt8.exe+5E6059: 0F 84 C4 00 00 00           - je Asphalt8.exe+5E6123
+Asphalt8.exe+5E605F: 48 8B 4D A0                 - mov rcx,[rbp-60]
+Asphalt8.exe+5E6063: E8 B8 71 59 00              - call Asphalt8.exe+B7D220
+Asphalt8.exe+5E6068: 84 C0                       - test al,al
+Asphalt8.exe+5E606A: 0F 85 B3 00 00 00           - jne Asphalt8.exe+5E6123
+Asphalt8.exe+5E6070: 48 C7 44 24 48 00 00 00 00  - mov qword ptr [rsp+48],00000000
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>28231</ID>
+              <Description>"Enable Vip 15 Performance"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Asphalt8.exe
+  Version:
+  Date   : 2025-03-29
+  Author : Asuna
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+define(address1,"Asphalt8.exe"+720EF6)
+define(bytes1,40 0F B6 D6 FF 90 C0 00 00 00)
+assert(address1,bytes1)
+alloc(newmem1,$1000,"Asphalt8.exe"+720EF6)
+label(code1)
+label(return1)
+
+define(address,"Asphalt8.exe"+41F9A0)
+define(bytes,74 2A E8 69 E5 FF FF)
+assert(address,bytes)
+
+newmem1:
+
+code1:
+mov sil,1   // Enable Icons
+movzx edx,sil
+call qword ptr [rax+000000C0]
+jmp return1
+
+address1:
+jmp newmem1
+nop 5
+return1:
+
+address:    // Enable Performance
+db 75
+
+[DISABLE]
+"Asphalt8.exe"+720EF6:
+db 40 0F B6 D6 FF 90 C0 00 00 00
+dealloc(newmem1)
+
+"Asphalt8.exe"+41F9A0:
+db 74
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>25054</ID>
+              <Description>"Speed Multiplier"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+1AD7DAF)
+define(bytes,F3 0F 10 49 34)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+1AD7DAF)
+alloc(speedMult,4)
+registersymbol(speedMult)
+
+newmem:
+mulss xmm3,[speedMult]
+
+code:
+movss xmm1,[rcx+34]
+jmp return
+
+speedMult:
+dd (float)1.0
+
+address:
+jmp newmem
+return:
+
+[DISABLE]
+Asphalt8.exe+1AD7DAF:
+db F3 0F 10 49 34
+dealloc(newmem)
+dealloc(speedMult)
+unregistersymbol(speedMult)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>25055</ID>
+                  <Description>"Write Value"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>speedMult</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>27486</ID>
+              <Description>"Safe Crash"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+EC5963)
+define(bytes,F3 48 0F 2A C1)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+EC5963)
+label(code)
+label(return)
+
+newmem:
+
+code:
+mov rcx,#0
+cvtsi2ss xmm0,rcx
+jmp return
+
+address:
+jmp newmem
+return:
+
+[DISABLE]
+"Asphalt8.exe"+EC5963:
+db F3 48 0F 2A C1
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22366</ID>
+              <Description>"No Crash"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Asphalt8.exe
+  Version:
+  Date   : 2023-06-26
+  Author : Asuna
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+define(address,Asphalt8.exe+47283B)
+define(bytes,38 91 0F 03 00 00)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+47283B)
+label(code)
+label(return)
+
+newmem:
+cmp [rcx+1F8],1
+jne code
+mov dl,0
+jmp return
+
+code:
+cmp [rcx+0000030F],dl
+jmp return
+
+address:
+jmp newmem
+nop
+return:
+
+[DISABLE]
+Asphalt8.exe+47283B:
+db 38 91 0F 03 00 00
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>29678</ID>
+              <Description>"Ghost Ultimate"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+  Script: Asphalt 8 - Ultimate Ghost &amp; No Flash
+  (support minor update )
+}
+
+[ENABLE]
+
+aobscanmodule(GHOST_WRITE, Asphalt8.exe, 80 7B 58 00 74 05 40 84 FF 75 16 C6 43 58 00)
+registersymbol(GHOST_WRITE)
+
+GHOST_WRITE+0B:
+  db C6 43 58 01
+
+aobscanmodule(GHOST_CHECK, Asphalt8.exe, 80 79 58 00 74 03 B0 01 C3)
+registersymbol(GHOST_CHECK)
+
+GHOST_CHECK:
+  db 90 90 90 90
+
+GHOST_CHECK+06:
+  db B0 00
+
+[DISABLE]
+
+GHOST_WRITE+0B:
+  db C6 43 58 00
+
+GHOST_CHECK:
+  db 80 79 58 00
+
+GHOST_CHECK+06:
+  db B0 01
+
+unregistersymbol(GHOST_WRITE)
+unregistersymbol(GHOST_CHECK)
+
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>27319</ID>
+              <Description>"Respawn Speed Car"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+424D85)
+define(bytes,F3 44 0F 59 E6)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+424D85)
+alloc(respawn_speed,4)
+label(code)
+label(return)
+registersymbol(respawn_speed)
+
+newmem:
+push rsi
+mov rsi,[respawn_speed]
+movd xmm6,rsi
+pop rsi
+
+code:
+mulss xmm12,xmm6
+jmp return
+
+respawn_speed:
+dd (float)1   // 0.5 = 50% speed // 1 = Max speed
+
+address:
+jmp newmem
+return:
+
+[DISABLE]
+"Asphalt8.exe"+424D85:
+db F3 44 0F 59 E6
+dealloc(newmem)
+dealloc(respawn_speed)
+unregistersymbol(respawn_speed)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>29520</ID>
+                  <Description>"Speed →"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>respawn_speed</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>29683</ID>
+              <Description>"Unlimited"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <GroupHeader>1</GroupHeader>
+              <Address>0</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>22583</ID>
+                  <Description>"Unlimited Nitro"</Description>
+                  <Color>FF0080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+1086779)
+define(bytes,0F 28 F9 4C 8B E1)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+1086779)
+label(code)
+label(return)
+
+newmem:
+mov rbx,(float)200
+movd xmm1,rbx
+movaps xmm7,xmm1
+mov r12,rcx
+
+code:
+movaps xmm7,xmm1
+mov r12,rcx
+jmp return
+
+address:
+jmp newmem
+nop
+return:
+
+[DISABLE]
+"Asphalt8.exe"+1086779:
+db 0F 28 F9 4C 8B E1
+dealloc(newmem)
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>0</ID>
+                  <Description>"Unlimited ADS Rewards"</Description>
+                  <Color>FF0080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+1819D8C)
+define(bytes,80 7F 19 00 75 13)
+
+address:
+db C6 47 19 01  // Enable ADS Buttoms
+
+[DISABLE]
+"Asphalt8.exe"+1819D8C:
+db 80 7F 19 00
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>20457</ID>
+              <Description>"Auto Drive"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+EC64BD)
+define(bytes,83 79 4C 01 8B FA)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+EC64BD)
+label(code)
+label(return)
+
+newmem:
+mov dword ptr [rcx+4C],#2
+
+code:
+cmp dword ptr [rcx+4C],01
+mov edi,edx
+jmp return
+
+address:
+jmp newmem
+nop
+return:
+
+[DISABLE]
+Asphalt8.exe+EC64BD:
+db 83 79 4C 01 8B FA
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Asphalt8.exe+CB27CC
+
+Asphalt8.exe+CB27AE: CC                    - int 3
+Asphalt8.exe+CB27AF: CC                    - int 3
+Asphalt8.exe+CB27B0: 40 55                 - push rbp
+Asphalt8.exe+CB27B2: 53                    - push rbx
+Asphalt8.exe+CB27B3: 57                    - push rdi
+Asphalt8.exe+CB27B4: 48 8B EC              - mov rbp,rsp
+Asphalt8.exe+CB27B7: 48 81 EC 80 00 00 00  - sub rsp,00000080
+Asphalt8.exe+CB27BE: 48 8B 05 53 44 33 01  - mov rax,[Asphalt8.exe+1FE6C18]
+Asphalt8.exe+CB27C5: 48 33 C4              - xor rax,rsp
+Asphalt8.exe+CB27C8: 48 89 45 F0           - mov [rbp-10],rax
+// ---------- INJECTING HERE ----------
+Asphalt8.exe+CB27CC: 83 79 4C 01           - cmp dword ptr [rcx+4C],01
+// ---------- DONE INJECTING  ----------
+Asphalt8.exe+CB27D0: 8B FA                 - mov edi,edx
+Asphalt8.exe+CB27D2: 48 8B D9              - mov rbx,rcx
+Asphalt8.exe+CB27D5: 0F 84 C2 04 00 00     - je Asphalt8.exe+CB2C9D
+Asphalt8.exe+CB27DB: 48 8B 01              - mov rax,[rcx]
+Asphalt8.exe+CB27DE: C6 81 D8 00 00 00 01  - mov byte ptr [rcx+000000D8],01
+Asphalt8.exe+CB27E5: FF 50 28              - call qword ptr [rax+28]
+Asphalt8.exe+CB27E8: 48 8B 4B 60           - mov rcx,[rbx+60]
+Asphalt8.exe+CB27EC: 48 8B 11              - mov rdx,[rcx]
+Asphalt8.exe+CB27EF: 4C 8B 82 98 02 00 00  - mov r8,[rdx+00000298]
+Asphalt8.exe+CB27F6: 84 C0                 - test al,al
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>27844</ID>
+              <Description>"Drift Radius"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+4688F0)
+define(bytes,F3 0F 11 89 20 03 00 00)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+4688F0)
+alloc(drift_radio,4)
+label(code)
+label(return)
+registersymbol(drift_radio)
+
+
+define(address1,Asphalt8.exe+2A4D9F)
+define(bytes1,F3 0F 10 8B 20 03 00 00)
+assert(address1,bytes1)
+alloc(newmem1,$1000,Asphalt8.exe+2A4D9F)
+label(code1)
+label(return1)
+
+
+newmem:
+push rax
+mov rax,[drift_radio]
+movd xmm1,rax
+movss [rcx+00000320],xmm1
+pop rax
+
+code:
+movss [rcx+00000320],xmm1
+jmp return
+
+drift_radio:
+dd (float)10000
+
+address:
+jmp newmem
+nop 3
+return:
+
+newmem1:
+push rax
+mov rax,[drift_radio]
+movd xmm1,rax
+movss [rbx+00000320],xmm1
+pop rax
+
+code1:
+movss xmm1,[rbx+00000320]
+jmp return1
+
+address1:
+jmp newmem1
+nop 3
+return1:
+
+[DISABLE]
+Asphalt8.exe+4688F0:
+db F3 0F 11 89 20 03 00 00
+Asphalt8.exe+2A4D9F:
+db F3 0F 10 8B 20 03 00 00
+dealloc(newmem)
+dealloc(newmem1)
+dealloc(drift_radio)
+unregistersymbol(drift_radio)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>27845</ID>
+                  <Description>"Write Value"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>drift_radio</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>25077</ID>
+              <Description>"Easy Handling"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+2ECC6C)
+define(bytes,F3 0F 10 8F 44 03 00 00)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+2ECC6C)
+alloc(handling,4)
+label(code)
+label(return)
+registersymbol(handling)
+
+newmem:
+push rax
+mov rax,[handling]
+imul rax,#1000000
+add [rdi+00000344],rax
+pop rax
+
+code:
+movss xmm1,[rdi+00000344]
+jmp return
+
+handling:   // 5 max
+dd (int)1
+
+address:
+jmp newmem
+nop 3
+return:
+
+[DISABLE]
+Asphalt8.exe+2ECC6C:
+db F3 0F 10 8F 44 03 00 00
+dealloc(newmem)
+dealloc(handling)
+unregistersymbol(handling)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>25538</ID>
+                  <Description>"Write Value"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>handling</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>25422</ID>
+              <Description>"Custom Fly"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+1AEB6E8)
+define(bytes,F3 0F 11 99 68 01 00 00)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+1AEB6E8)
+alloc(fly_custom,4)
+label(code)
+label(return)
+registersymbol(fly_custom)
+
+newmem:
+push rbx
+mov rbx,[fly_custom]
+movd xmm3,rbx
+movss [rcx+00000168],xmm3
+pop rbx
+jne code
+
+code:
+movss [rcx+00000168],xmm3
+jmp return
+
+fly_custom:
+dd (float)2
+
+address:
+jmp newmem
+nop
+nop
+nop
+return:
+
+[DISABLE]
+Asphalt8.exe+1AEB6E8:
+db F3 0F 11 99 68 01 00 00
+dealloc(newmem)
+dealloc(fly_custom)
+unregistersymbol(fly_custom)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>29655</ID>
+                  <Description>"Write Value"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>fly_custom</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>27895</ID>
+              <Description>"Air Speed Intensity"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+45FD12)  // F3 0F 58 FE EB ??
+define(bytes,F3 0F 58 FE EB 53)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+45FD12)
+alloc(airspeed,4)
+label(code)
+label(return)
+registersymbol(airspeed)
+
+newmem:
+push rax
+mov rax,[airspeed]
+movd xmm6,rax
+addss xmm7,xmm6
+pop rax
+
+code:
+addss xmm7,xmm6
+jmp Asphalt8.exe+4329CB
+jmp return
+
+airspeed:
+dd (float)150
+
+address:
+jmp newmem
+nop
+return:
+
+[DISABLE]
+"Asphalt8.exe"+45FD12:
+db F3 0F 58 FE EB 53
+dealloc(newmem)
+dealloc(airspeed)
+unregistersymbol(airspeed)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Asphalt8.exe+3AA16A
+
+Asphalt8.exe+3AA13E: 48 8B 1D 1B F9 CF 01  - mov rbx,[Asphalt8.exe+20A9A60]
+Asphalt8.exe+3AA145: 48 8B 01              - mov rax,[rcx]
+Asphalt8.exe+3AA148: FF 90 98 00 00 00     - call qword ptr [rax+00000098]
+Asphalt8.exe+3AA14E: 48 8B CB              - mov rcx,rbx
+Asphalt8.exe+3AA151: 0F 28 F0              - movaps xmm6,xmm0
+Asphalt8.exe+3AA154: E8 07 30 E0 FF        - call Asphalt8.exe+1AD160
+Asphalt8.exe+3AA159: 48 8B 4F 18           - mov rcx,[rdi+18]
+Asphalt8.exe+3AA15D: F3 0F 58 70 10        - addss xmm6,[rax+10]
+Asphalt8.exe+3AA162: E8 39 35 00 00        - call Asphalt8.exe+3AD6A0
+Asphalt8.exe+3AA167: 0F 28 F8              - movaps xmm7,xmm0
+// ---------- INJECTING HERE ----------
+Asphalt8.exe+3AA16A: F3 0F 58 FE           - addss xmm7,xmm6
+// ---------- DONE INJECTING  ----------
+Asphalt8.exe+3AA16E: EB 3E                 - jmp Asphalt8.exe+3AA1AE
+Asphalt8.exe+3AA170: 48 8B 4F 18           - mov rcx,[rdi+18]
+Asphalt8.exe+3AA174: E8 D7 39 00 00        - call Asphalt8.exe+3ADB50
+Asphalt8.exe+3AA179: 48 8B 5F 38           - mov rbx,[rdi+38]
+Asphalt8.exe+3AA17D: 84 C0                 - test al,al
+Asphalt8.exe+3AA17F: 74 1E                 - je Asphalt8.exe+3AA19F
+Asphalt8.exe+3AA181: 48 8B 4F 18           - mov rcx,[rdi+18]
+Asphalt8.exe+3AA185: E8 56 35 00 00        - call Asphalt8.exe+3AD6E0
+Asphalt8.exe+3AA18A: 48 8B 03              - mov rax,[rbx]
+Asphalt8.exe+3AA18D: 48 8B CB              - mov rcx,rbx
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>27947</ID>
+                  <Description>"Write Value"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>airspeed</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>24903</ID>
+              <Description>"1-Click Perfect Nitro"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+4640D5)
+define(bytes,41 8B D1 D3 EA)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+4640D5)
+label(code)
+label(return)
+
+newmem:
+mov byte ptr [rdi+000001E1],1 // Perfect Nitro check
+
+code:
+mov r9d,#3 // Triple Nitro
+mov edx,r9d
+shr edx,cl
+jmp return
+
+address:
+jmp newmem
+return:
+
+[DISABLE]
+Asphalt8.exe+4640D5:
+db 41 8B D1 D3 EA
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22661</ID>
+              <Description>"Triple Nitro"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+4640D5)
+define(bytes,41 8B D1 D3 EA)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+4640D5)
+label(code)
+label(return)
+
+newmem:
+
+code:
+mov r9d,#3  // unecrypted value in r9d register
+mov edx,r9d
+shr edx,cl
+jmp return
+
+address:
+jmp newmem
+return:
+
+[DISABLE]
+Asphalt8.exe+4640D5:
+db 41 8B D1 D3 EA
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>27541</ID>
+              <Description>"Perfect Run Timer"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+4562BF)
+define(bytes,3D 20 4E 00 00)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+4562BF)
+alloc(perfect_run_timer,4)
+label(code)
+label(return)
+registersymbol(perfect_run_timer)
+
+newmem:
+
+code:
+cmp eax,(int)[perfect_run_timer]
+jmp return
+
+perfect_run_timer:
+dd (int)1000
+
+address:
+jmp newmem
+return:
+
+"Asphalt8.exe"+4562BF-2F:
+db 90 90 90 90 90 90
+
+[DISABLE]
+"Asphalt8.exe"+4562BF:
+db 3D 20 4E 00 00
+dealloc(newmem)
+dealloc(perfect_run_timer)
+unregistersymbol(perfect_run_timer)
+
+"Asphalt8.exe"+4562BF-2F:
+db 0F 84 6E 01 00 00
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>27542</ID>
+                  <Description>"Write Value"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>perfect_run_timer</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22665</ID>
+              <Description>"Stunts Multiplier"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address1,Asphalt8.exe+45B892)
+define(bytes1,75 03 FF 43 14)
+assert(address1,bytes1)
+alloc(newmem1,$1000,Asphalt8.exe+45B892)
+alloc(stunt1_multiplier,4)
+label(code1)
+label(return1)
+registersymbol(stunt1_multiplier)
+
+
+define(address2,Asphalt8.exe+459D02)
+define(bytes2,75 03 FF 43 0C)
+assert(address2,bytes2)
+alloc(newmem2,$1000,Asphalt8.exe+459D02)
+label(code2)
+label(return2)
+
+
+newmem1:
+
+code1:
+push rax
+mov rax,[stunt1_multiplier]
+add [rbx+14],rax
+pop rax
+jmp return1
+
+address1:
+jmp newmem1
+
+return1:
+
+newmem2:
+
+code2:
+push rax
+mov rax,[stunt1_multiplier]
+add [rbx+0C],rax
+pop rax
+jmp return2
+
+address2:
+jmp newmem2
+
+return2:
+
+stunt1_multiplier:
+dd (int)2
+
+[DISABLE]
+Asphalt8.exe+45B892:
+db 75 03 FF 43 14
+Asphalt8.exe+459D02:
+db 75 03 FF 43 0C
+dealloc(newmem1)
+dealloc(newmem2)
+dealloc(stunt1_multiplier)
+unregistersymbol(stunt1_multiplier)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22431</ID>
+              <Description>"Write Value →"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>FF0080</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>stunt1_multiplier</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>25544</ID>
+              <Description>"Acceleration Hack"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+45FD6B)
+define(bytes,F3 0F 59 7D 18)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+45FD6B)
+label(code)
+label(return)
+
+newmem:
+add [rsi+08],153158E  // Acceleration
+
+code:
+mulss xmm7,[rbp+18]
+jmp return
+
+address:
+jmp newmem
+return:
+
+[DISABLE]
+Asphalt8.exe+45FD6B:
+db F3 0F 59 7D 18
+dealloc(newmem)
+</AssemblerScript>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Toggle Activation</Action>
+                  <Keys>
+                    <Key>18</Key>
+                  </Keys>
+                  <ID>0</ID>
+                  <ActivateSound TTS="EN">Accel Activated</ActivateSound>
+                  <DeactivateSound TTS="EN">Accel Deactivated</DeactivateSound>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22550</ID>
+              <Description>"Efficient Acceleration"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+45FD6B)
+define(bytes,F3 0F 59 7D 18)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+45FD6B)
+alloc(acceleration,4)
+label(code)
+label(return)
+registersymbol(acceleration)
+
+newmem:
+movss xmm13,[rsi+08]
+mulss xmm13,[acceleration]
+movss [rsi+08],xmm13
+
+code:
+mulss xmm7,[rbp+18]
+jmp return
+
+acceleration:
+dd (float)1
+
+address:
+jmp newmem
+return:
+
+[DISABLE]
+Asphalt8.exe+45FD6B:
+db F3 0F 59 7D 18
+dealloc(newmem)
+dealloc(acceleration)
+unregistersymbol(acceleration)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>25543</ID>
+                  <Description>"Write"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>acceleration</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22130</ID>
+              <Description>"Wall Hack"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+Asphalt8.exe+1AF6B83:
+db 90 90 90 90 90 90
+
+[DISABLE]
+Asphalt8.exe+1AF6B83:
+db F3 41 0F 5C 40 50
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>27320</ID>
+              <Description>"Cross The Track Blockages"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+Asphalt8.exe+1ABB893:
+db 90 90 90 90 90
+
+[DISABLE]
+Asphalt8.exe+1ABB893:
+db F3 44 0F 58 C9
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>29679</ID>
+          <Description>"Offline Races and Events"</Description>
+          <Options moHideChildren="1"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>800000</Color>
+          <GroupHeader>1</GroupHeader>
+          <Address>.9.</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>25390</ID>
+              <Description>"Racers"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>define(address,Asphalt8.exe+F9C5D)
+define(bytes,8B 42 3C 89 41 3C)
+
+[ENABLE]
+assert(address,bytes)
+alloc(racers1,$1000,Asphalt8.exe+F9C5D)
+globalalloc(racers,4)
+label(code)
+label(return)
+
+racers1:
+mov eax,[racers]
+mov [rdx+3C],eax
+jmp code
+
+code:
+mov eax,[rdx+3C]
+mov [rcx+3C],eax
+jmp return
+
+racers:
+dd #20
+
+address:
+jmp racers1
+nop
+return:
+
+[DISABLE]
+address:
+db bytes
+dealloc(racers1)
+dealloc(racers)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>25391</ID>
+                  <Description>"Write Racers Numder"</Description>
+                  <Color>FF0080</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>racers</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>24897</ID>
+              <Description>"Laps"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+1F0E3D)
+define(bytes,8B 41 28 C3 B8 3F 42 0F 00)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+1F0E3D)
+alloc(laps,4)
+label(code)
+label(return)
+registersymbol(laps)
+
+define(address1,Asphalt8.exe+F9C3F)
+define(bytes1,8B 42 28 89 41 28)
+assert(address1,bytes1)
+alloc(newmem1,$1000,Asphalt8.exe+F9C3F)
+label(code1)
+label(return1)
+
+
+newmem:
+push rbx
+mov rbx,[laps]
+mov [rcx+28],rbx
+pop rbx
+
+code:
+mov eax,[rcx+28]
+ret
+mov eax,000F423F
+jmp return
+
+laps:
+dd (int)10
+
+address:
+jmp newmem
+nop 4
+return:
+
+newmem1:
+mov eax,[laps]
+mov [rdx+28],eax
+
+code1:
+mov eax,[rdx+28]
+mov [rcx+28],eax
+jmp return1
+
+address1:
+jmp newmem1
+nop
+return1:
+
+[DISABLE]
+Asphalt8.exe+1F0E3D:
+db 8B 41 28 C3 B8 3F 42 0F 00
+
+Asphalt8.exe+F9C3F:
+db 8B 42 28 89 41 28
+dealloc(newmem)
+dealloc(newmem1)
+dealloc(laps)
+unregistersymbol(laps)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>24898</ID>
+                  <Description>"Write Laps Number"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>laps</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22497</ID>
+              <Description>"Time Hack"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+F51030)
+define(bytes,F3 0F 58 C8 F3 0F 11 4C 24 20)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+F51030)
+alloc(set_time,4)
+label(code)
+label(return)
+registersymbol(set_time)
+
+newmem:
+
+code:
+movss xmm1,(float)[set_time]
+movss [rsp+20],xmm1
+jmp return
+
+set_time:
+dd (float)50000
+
+address:
+jmp newmem
+nop 5
+return:
+
+[DISABLE]
+Asphalt8.exe+F51030:
+db F3 0F 58 C8 F3 0F 11 4C 24 20
+dealloc(newmem)
+dealloc(set_time)
+unregistersymbol(set_time)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>22498</ID>
+                  <Description>"Write In Milliseconds !!"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>set_time</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1969</ID>
+              <Description>"No Traffic"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+F9C71)
+define(bytes,0F B6 42 42 88 41 42)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+F9C71)
+label(code)
+label(return)
+
+newmem:
+mov [rdx+42],0
+
+code:
+movzx eax,byte ptr [rdx+42]
+mov [rcx+42],al
+jmp return
+
+address:
+jmp newmem
+nop
+nop
+return:
+
+[DISABLE]
+Asphalt8.exe+F9C71:
+db 0F B6 42 42 88 41 42
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>27349</ID>
+              <Description>"Gauntlet - Change Car Timer"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+794D58)
+define(bytes,44 8B 0A 41 8B C1)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+794D58)
+alloc(gauntlet_timer,4)
+label(code)
+label(return)
+registersymbol(gauntlet_timer)
+
+newmem:
+mov eax,[gauntlet_timer]
+mov r8d,[Asphalt8.exe+22D956C]
+xor eax,r8d
+xor eax,edx
+mov [rdx],eax
+
+code:
+mov r9d,[rdx]
+mov eax,r9d
+jmp return
+
+gauntlet_timer:
+dd (int)1000
+
+address:
+jmp newmem
+nop
+return:
+
+[DISABLE]
+"Asphalt8.exe"+794D58:
+db 44 8B 0A 41 8B C1
+dealloc(newmem)
+dealloc(gauntlet_timer)
+unregistersymbol(gauntlet_timer)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>27827</ID>
+                  <Description>"Write Value"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>gauntlet_timer</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>25186</ID>
+              <Description>"Change Event Car"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+1BB080)
+define(bytes,8B 41 38 89 02)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+1BB080)
+alloc(choisecar,4)
+label(code)
+label(return)
+registersymbol(choisecar)
+
+newmem:
+mov [choisecar],rcx
+
+code:
+mov eax,[rcx+38]
+mov [rdx],eax
+jmp return
+
+address:
+jmp newmem
+return:
+
+[DISABLE]
+"Asphalt8.exe"+1BB080:
+db 8B 41 38 89 02
+dealloc(newmem)
+dealloc(choisecar)
+unregistersymbol(choisecar)
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>25187</ID>
+                  <Description>"Current Car"</Description>
+                  <DropDownList DisplayValueAsItem="1">??:Waiting Car...
+1:Dodge Dart GT
+2:Audi R8 e-tron
+3:Tesla Model S
+4:Cadillac ATS
+5:Cadillac XTS
+6:Scion FR-S
+7:Mini Cooper S Roadster
+8:Alfa Romeo MiTo GTA
+9:Audi S4
+10:Nissan 370Z
+11:Audi RS 3 Sportback
+12:Mercerdes-Benz SLS AMG Electric Drive
+13:Audi TTS Coupé
+14:Chevrolet Camaro GS
+15:Ford Focus RS
+16:Lamborhini Urus
+17:Infiniti FX50
+18:Lotus Exige S Coupe
+19:Audi RS 4 Avant
+20:Alfa Romeo 8C Competizione
+21:DS Survolt
+22:Aston Martin DB9 Coupé
+23:Lamborghini Countach 25th Anniversary
+24:Maserati GranTurismo Sport
+25:Bentley Continental GT V8
+26:Aston Martin V12 Zagato
+27:Aston Martin V12 Vantage
+28:Nissan GT-R (R35)
+29:Ferrari 458 Italia
+30:Ford Shelby GT500
+31:Cadillac CTS-V Coupe Race Car
+32:Mercedes-Benz SL 65 AMG Black Series
+33:Dodge Viper SRT10 ACR-X
+34:Chevrolet  Corvette C7
+35:McLaren 12C Spider
+36:Pagani Zonda R
+37:Ferrari F12berlinetta
+38:Lamborghini Sesto Elemento
+39:Marussia B2
+41:Lamborghini veneno
+42:GTA Spano
+44:Ferrari FXX Evoluzione
+45:Buggati 16.4 Grand Sport Vitesse
+46:Mercedes-Benz Silver Lightning
+47:Koenigsegg Agera R
+48:Ferrari 599XX
+49:Lamborghini Gallardo LP 560-4 2013
+50:Renault CLIO R.S. 200 EDC
+51:BMW M6
+52:Ferrari F430
+53:Lotus Evora Enduro GT
+54:Ferrari LaFerrari
+55:W Motors Lykan HyperSport
+56:Pagani Huayra
+57:McLaren P1
+58:SSC Tuatara
+59:Ferrari Testarossa
+60:SRT 2013 Dodge Challenger SRT8
+61:Ford F-150
+62:Hennessey Venom GT
+63:Chrysler ME412
+64:Ferrari FF
+65:Ford GT 2006
+66:Mercedes-Benz SLS AMG GT Coupé Final Edition
+67:2015 Ford Mustang
+68:Jaguar C-X75
+69:Mercedes-Benz CLK GTR AMG
+70:Mercedes-Benz Biome
+71:Peugeot Onyx
+72:Jaguar F-TYPE R
+73:Savage Rivale Roadyacht GTS
+74:Mazda Furai
+75:Nissan GT-R NISMO
+76:SSC Ultimate Aero XT
+77:Rimac Concept_One
+78:Savage Rivale GTR
+79:Maserati MC12
+80:VolkswagenW12
+81:Koenigsegg One:1
+82:9FF GT9 VMAX
+83:Tramontana XTR
+84:Felino cB7
+85:Spada Codatronca TSS
+86:Arrinera Hussarya
+87:Lucra L148
+88:Acura NSX 2005
+89:Renault DeZir
+90:Ferrari F40
+91:Ferrari Enzo Ferrari
+92:Ferrari 612 Scaglietti
+93:Ferrari F50
+94:Ferrari 308 GTS
+95:Ferrari 330 P4
+96:Volkswagen Golf Design Vision GT1
+97:BMW M3 Sedan
+98:Audi R8 LMS Ultra
+99:BMW M1
+100:HTT Pléthore LC 750
+101:Lamborghini Aventador Coupé
+102:Geely GC9
+103:ONUK Sazan S
+104:Mitsubishi Lancer Evolution X
+105:Chevrolet SS
+106:AC 378 GT Z
+107:Kepler Motion
+108:McLaren 675LT
+109:Bentley EXP10 Speed 6
+110:McLaren P1™ GTR
+111:Camaro Z/28
+112:Datsun 280Z
+113:Shelby Cobra 427
+114:SUBARU IMPREZA WRX STI
+115:McLaren 570S
+116:Lamborghini Huracán
+117:Cadillac 16 Concept
+118:McLaren F1 XP-5
+119:DS 3 Racing
+120:Honda S2000
+121:Range Rover Evoque Coupe HSE Dynamic
+122:Mercedes-Benz SLK 55 AMG
+123:Toyota Supra RZ (Mark IV)
+124:Nissan Skyline GT-R (R34)
+125:Peugeot SR1
+126:Lamborghini Asterion
+127:Mazzanti Evantra
+128:Mosler GT3
+129:Lamborghini Egoista
+130:Renault Sport R.S. 01
+131:TRION NEMESIS
+132:ED Design Torq
+133:Alfa Rome 4C
+134:Lamborghini Estoque
+135:Rinspeed zaZen
+136:Sbarro Alcador
+137:Holden Coupe 60
+138:Volkswagen Beetle Turbo
+139:Lamborghini Miura
+140:Chevrolet 2016 Camaro SS
+142:Mosler Super GT
+143:Mazda RX8
+144:BMW 3.0 CSL Hommage
+145:Honda Integra Type-R
+146:Devel Sixteen Prototype
+147:Mazda 6
+148:Mitsubishi Eclipse
+149:nanoFlowcell QUANT FE
+150:W Motors Fenyr Supersport
+151:nanoFlowcell QUANTINO
+152:Weber Faster One
+153:Mercedes-AMG GT3
+154:Nissan Juke Nismo
+155:Jaguar XJ220S
+156:Mercedes-AMG C 63 Coupe Touring Car 2014
+157:Jaguar F-TYPE Project 7
+158:Aston Martin One-77
+159:Donkervoort D8 GT0
+160:Cadillac ATS-V Coupe
+161:BXR Bailey Blade GT1
+162:Mercedes-Benz GLC Coupe
+163:2015 GTA Spano
+164:Falcon F7
+165:TVR Sagaris
+166:GT by CITROEN
+167:Icona Vulcano V12 Hybrid
+168:Chevrolet Corvette C3
+169:Alfa Romeo Giulietta 2016 Veloce
+170:Mercedes-Benz CLA 45 AMG Racing Series
+171:McLaren M14A
+172:McLaren Mercedes MP4-25
+173:Arash AF10
+174:Aston Marton Vulcan
+175:1967 Chevrolet Impala
+176:2010 Bentley Continental Supersports
+177:Mosler Land Shark
+178:BMW M2
+179:McLaren MP4/8
+180:Renualt Alpine Celebration
+181:Lamborghini Aventador SV
+182:Buick Avista Concept
+183:Mercedes-Benz SLK 55 AMG Special Edition
+184:McLaren MP4-31
+185:Sbarro Sparta
+186:Chevrolet Corvette Grand Sport
+187:SIN R1
+188:Ferrari GTC4Lusso
+189:Lotus Evora Sport 410
+190:Porsche Cayman GT4
+191:Porsche 718 Boxter S
+192:Porsche 959
+193:Porsche 911 GT3 RS
+194:Porsche 918 Syper with Weissach Package
+195:Suzuki Hayabusa
+196:Susuki GSX-R750
+197:Peugeot RCZ R
+198:KTM 1290 Super Duke R
+199:Ducati SuperSport S
+200:Ducati Mosnter 1200
+201:Mercedes-Benz SLR McLaren 722 Edition
+202:Kawasaki Z800
+203:Aprilia Tuono V4 1100 RR my2017
+204:Honda Civic Type-R
+205:Renault Trezor
+206:McLaren 650S GT3
+207:Arrinera Hussarya GT
+209:BMW S 1000 RR
+210:BMW M2 Special Edition
+211:Bone Shaker™
+212:Rip Rod™
+213:Twin Mill™
+214:Pagani Huayra BC
+215:Yamaha FZ-10
+216:Audi R8 e-tron Special Edition
+217:Yamaha YZF-R6
+218:Ariel Atom V8
+219:Buick Riviera
+220:Vanda Electrics Dendrobium
+221:Zenvo ST1
+222:Apollo Intensa Emozione
+223:Apollo N
+224:Vencer Sarthe
+225:Kawasaki Ninja H2R
+226:Ducati XDiavel S
+227:Zenvo TS1 GT 10th Anniversary Edition
+228:Rimac Concept S
+229:Sbarro GT1
+230:Rezvani Beast Alpha
+231:Mazda RRX8 Special Edition
+232:2018 McLaren X2
+233:McLaren 720S
+234:Porsche Carrera GT
+235:Ferrari 488 Pista
+236:SCG 003S
+237:MV Agusta F4 1000 R
+238:Hyundai i30 N
+239:Maserati Alfieri
+240:Mercedes-Benz SLS AMG Coupé Black Series
+241:Lamborghini Murciélago LP640
+242:Infiniti Vision GT
+243:Nissan 370Z Special Edition
+244:Lightning LS-218
+245:BMW i8 Coupe
+246:Lamborghini Centenario
+247:TVR Sagaris Special Edition
+248:Zeus Twelve Sigma
+249:Ferrari F60 America
+250:Porsche Panamera Sport Turismo
+251:Spyker C8 Preliator
+252:Pininfarina H2 Speed
+253:Equus Bass 770
+254:Rezvani Beast X
+255:McLaren 600LT
+256:Infiniti Project Black S
+257:Aston Martin Vantage 2018
+258:Koenigsegg CCXR Trevita
+259:Ford GT 2017
+260:Bentley Continental GT3
+261:Koenigsegg Regera
+262:Pontiac Solstice GXP
+263:Volkswagen I.D R.
+264:Acura NSX GT3 Evo
+265:Lamborghini Aventador SVJ
+266:Rimac Nevera
+267:Lamborghini Terzo Millennio
+268:Aston Martin DBS Superleggera
+269:Ferrari 812 Superfast
+270:KTM X-Bow GT4
+271:Ferrari FXX K
+272:Koenigsegg Jesko
+273:Italdesign Zerouno
+274:Lotus Elise Cup 260
+275:Automobili Pininfarina Battista
+276:Ferrari SF90 Stradale
+277:Infiniti Project Black S Special Edition
+278:McLaren Senna
+279:Lotus Evija
+280:Drako GTE
+281:TORINO DESIGN Super Sport
+282:Aspark Owl
+283:Formula E Gen2
+284:Lamborghini Sián FKP 37
+285:DS E-Tense
+286:Chrysler Firepower
+287:Porsche Taycan Turbo S
+288:Mazzanti Evantra Millecavalli
+289:Bugatti Chiron
+290:Porsche 718 Cayman GT4 Clubsport
+291:Chevrolet Corvette Stingray
+292:Chevrolet Corvette ZR1
+293:Dodge Tomahawk
+294:Morgan Aero GT
+295:Jaguar XKR-S GT
+296:Aston Martin Valhalla
+297:BMW M4 GTS
+298:Nissan Leaf Nismo RC
+299:Bugatti Divo
+300:Koenigsegg Agera RS
+301:Exotic Rides W70
+302:BXR Bailey Blade GT1 Special Edition
+303:Ferrari LaFerrari Aperta
+304:Renault ZOE e-Sport Concept
+305:Italdesign DaVinci
+306:Ferrari 488 Challenge Evo
+307:Ferrari 599XX Evo
+308:Bugatti La Voiture Noire
+309:Ferrari F8 Tributo
+310:Bugatti Chiron Sport 110 Ans
+311:McLaren Speedtail
+312:Koenigsegg Gemera
+313:Lamborghini Essenza SCV12
+314:KTM X-Bow GTX
+315:Lamborghini SC20
+316:ONUK Sazan LM
+317:McLaren Elva
+318:Bugatti Centodieci
+319:Porsche 911 GT1 Evolution
+320:Bugatti Chiron Supersport 300+
+321:Bugatti Bolide
+322:Mercedes-Benz Vision EQS
+323:Lamborghini Huracán Super Trofeo Evo
+324:Buggati Veyron 16.4 Super Sport
+325:Arrinera e-Hussarya
+326:Chevrolet Corvette C7.R
+327:Aston Martin Victor
+328:Ford GT Mk II
+329:Techrules AT96 Track Version
+330:Aston Martin Valkyrie
+331:Bugatti Vision Gran Turismo
+332:Aston Martin V12 Speedster
+333:VISION 1789
+334:Nissan Skyline GT-R (R34) Special Edition
+335:Pagani Huayra R
+336:RAESR Tachyon Speed
+337:Ajlani Drakuma
+338:Pagani Imola
+339:DMC Delorean Neon Edition
+340:TVS Apache RR 310
+341:Genty Akylone
+342:Ultima RS
+343:Lamborghini Countach LPI 800-4
+344:Peugeot 9X8
+345:Tushek TS 900 Racer Pro
+346:Gangstar Vegas Ramona
+347:Chevrolet Camaro SS Independence Edition
+348:Faraday Future FFZERO1
+349:Lotus E-R9
+350:Mitsubishi Lancer Evolution X Anniversary Edition
+351:De Tomaso P72
+352:Beltoise BT01
+353:Team Fordzilla P1
+354:Ferrari Monza SP1
+355:Aston Martin V12 Vantage 2022
+356:Lotus Emira
+357:W Motors Lykan Hypersport Halloween Edition
+358:Porsche 911 Edition 50 Years Porsche Design
+359:DEUS Vayanne
+360:Arash AF8 Falcon Edition
+361:McLaren 720S GT3X
+362:Tushek TS 900 Apex
+363:Koenigsegg Jesko Absolut
+364:Porsche 911 GT3 RS Year of the Rabbit Edition
+365:Zenvo TSR-S
+366:2023 Nissan Fairlady Z
+367:Naran Hyper Coupe
+368:Jaguar F-TYPE SVR
+369:NIO EP9
+370:Pagani Utopia Coupé
+371:Renault R5 TURBO 3E
+372:Pagani Zonda HP Barchetta
+373:Ferrari 296 GTB
+374:Brabham BT62
+375:Faraday Future FF 91 2.0 Futurist
+376:Lamborghini Huracán Sterrato
+377:Lamborghini Diablo GT
+378:Lamborghini Huracán EVO Spyder
+379:Lamborghini Reventón Roadster
+381:Hennessey Venom F5 Roadster
+382:Koenigsegg CC850
+383:Dodge Dart X Edition
+384:Chevrolet Camaro ZL1 50th Anniversary Edition
+385:Mclaren Artura
+386:McLaren Solus GT
+387:McLaren GT
+388:FV Frangivento Sorpasso GT3
+389:Maserati MC20
+390:DS E-Tense Performance
+391:Ford Mustang Mach-E 1400
+392:VLF Force 1 V10
+393:Apollo EVO
+394:Mercedes-Benz 2022 Showcar Vision AMG
+395:Mercedes-Benz AMG GT Black Series
+396:Lamborghini Huracán ST0
+397:McLaren Senna GTR
+398:DS E-TENSE 11th Anniversary Edition
+399:Aston Martin Valkyrie AMR Pro
+400:Bugatti Mistral
+406:McLaren 765LT Spider
+401:McLaren 600LT Spider
+402:Lamborghini Revuelto
+403:ATS GT
+404:De Tomaso P900
+405:Aston Martin DBS 770 Ultimate
+407:McMurtry Spéirling
+408:Lamborghini Temerario
+409:Ferrari SF90 XX Stradale
+410:Lamborghini Autentica
+411:Ferrari 12Cilindri Spider
+412:Pagani Huayra R 20th Asphalt Anniversary Edition
+413:Kawasaki Ninja H2R Airborne Anniversary Edition
+414:Lexus Electrified Sport Concept
+415:Arrinera Hussarya 33
+416:Porsche 718 Spyder RS
+417:Automobili Pininfarina B95
+10214:Pagani Huayra BC (Sportline)
+10321:Bugatti Bolide (Sportline)
+</DropDownList>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <Color>FF0080</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>choisecar</Address>
+                  <Offsets>
+                    <Offset>38</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>24901</ID>
+              <Description>"Convert Race "Showdown Mode""</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+F9C33)
+define(bytes,8B 42 20 89 41 20)
+
+assert(address,bytes)
+assert(address,bytes)
+alloc(Asphalt8,$1000,Asphalt8.exe+F9C33)
+label(code)
+label(return)
+
+Asphalt8:
+mov [rdx+20],#12
+
+code:
+mov eax,[rdx+20]
+mov [rcx+20],eax
+jmp return
+
+address:
+jmp Asphalt8
+nop
+
+return:
+
+[DISABLE]
+Asphalt8.exe+F9C33:
+db 8B 42 20 89 41 20
+dealloc(Asphalt8)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>21779</ID>
+              <Description>"5 Stars Hack"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+EF602E)
+define(bytes,8B 01 41 89 01)
+assert(address,bytes)
+alloc(newmem,$1000,Asphalt8.exe+EF602E)
+label(code)
+label(return)
+
+newmem:
+mov [rcx+04],3
+mov [rcx+08],0101
+mov eax,[rcx]
+mov [r9],eax
+jmp return
+
+code:
+mov eax,[rcx]
+mov [r9],eax
+jmp return
+
+address:
+jmp newmem
+return:
+
+[DISABLE]
+Asphalt8.exe+EF602E:
+db 8B 01 41 89 01
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>27992</ID>
+              <Description>"No Disqualification"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+1677570)
+define(bytes,0F B6 81 48 01 00 00)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+1677570)
+label(code)
+label(return)
+
+newmem:
+mov byte ptr [rcx+00000148],0
+
+code:
+movzx eax,byte ptr [rcx+00000148]
+jmp return
+
+address:
+jmp newmem
+nop 2
+return:
+
+[DISABLE]
+"Asphalt8.exe"+1677570:
+db 0F B6 81 48 01 00 00
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>29681</ID>
+          <Description>"Visuals and Сustomization"</Description>
+          <Options moHideChildren="1"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>800000</Color>
+          <GroupHeader>1</GroupHeader>
+          <Address>.7.</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>29440</ID>
+              <Description>"No Avatars Animation"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+24864A)
+define(bytes,8B 40 24 89 47 14)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+24864A)
+label(code)
+label(return)
+
+newmem:
+mov [rax+24],#0
+
+code:
+mov eax,[rax+24]
+mov [rdi+14],eax
+jmp return
+
+address:
+jmp newmem
+nop
+return:
+
+[DISABLE]
+"Asphalt8.exe"+24864A:
+db 8B 40 24 89 47 14
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Asphalt8.exe+22996A
+
+Asphalt8.exe+229946: 48 8B 0C CA     - mov rcx,[rdx+rcx*8]
+Asphalt8.exe+22994A: E8 61 47 01 00  - call Asphalt8.exe+23E0B0
+Asphalt8.exe+22994F: 48 8B 4B 08     - mov rcx,[rbx+08]
+Asphalt8.exe+229953: 48 8B F0        - mov rsi,rax
+Asphalt8.exe+229956: 48 2B 0B        - sub rcx,[rbx]
+Asphalt8.exe+229959: 48 C1 F9 03     - sar rcx,03
+Asphalt8.exe+22995D: FF C9           - dec ecx
+Asphalt8.exe+22995F: 89 4F 08        - mov [rdi+08],ecx
+Asphalt8.exe+229962: 44 8B 48 20     - mov r9d,[rax+20]
+Asphalt8.exe+229966: 44 89 4F 10     - mov [rdi+10],r9d
+// ---------- INJECTING HERE ----------
+Asphalt8.exe+22996A: 8B 40 24        - mov eax,[rax+24]
+// ---------- DONE INJECTING  ----------
+Asphalt8.exe+22996D: 89 47 14        - mov [rdi+14],eax
+Asphalt8.exe+229970: 8B 5E 0C        - mov ebx,[rsi+0C]
+Asphalt8.exe+229973: 44 3B CB        - cmp r9d,ebx
+Asphalt8.exe+229976: 74 2D           - je Asphalt8.exe+2299A5
+Asphalt8.exe+229978: 44 3B 4E 20     - cmp r9d,[rsi+20]
+Asphalt8.exe+22997C: 44 8B 46 10     - mov r8d,[rsi+10]
+Asphalt8.exe+229980: 44 0F 4C 4E 20  - cmovl r9d,[rsi+20]
+Asphalt8.exe+229985: 44 39 4E 24     - cmp [rsi+24],r9d
+Asphalt8.exe+229989: 8B 56 08        - mov edx,[rsi+08]
+Asphalt8.exe+22998C: 44 0F 4C 4E 24  - cmovl r9d,[rsi+24]
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>28100</ID>
+              <Description>"Air Animation Effect"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+470660)
+define(bytes,F3 0F 10 81 04 05 00 00)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+470660)
+label(code)
+label(return)
+
+newmem:
+mov [rcx+00000504],(float)100
+
+code:
+movss xmm0,[rcx+00000504]
+jmp return
+
+address:
+jmp newmem
+nop 3
+return:
+
+[DISABLE]
+"Asphalt8.exe"+470660:
+db F3 0F 10 81 04 05 00 00
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Asphalt8.exe+3ED550
+
+Asphalt8.exe+3ED546: CC                       - int 3 
+Asphalt8.exe+3ED547: CC                       - int 3 
+Asphalt8.exe+3ED548: CC                       - int 3 
+Asphalt8.exe+3ED549: CC                       - int 3 
+Asphalt8.exe+3ED54A: CC                       - int 3 
+Asphalt8.exe+3ED54B: CC                       - int 3 
+Asphalt8.exe+3ED54C: CC                       - int 3 
+Asphalt8.exe+3ED54D: CC                       - int 3 
+Asphalt8.exe+3ED54E: CC                       - int 3 
+Asphalt8.exe+3ED54F: CC                       - int 3 
+// ---------- INJECTING HERE ----------
+Asphalt8.exe+3ED550: F3 0F 10 81 04 05 00 00  - movss xmm0,[rcx+00000504]
+// ---------- DONE INJECTING  ----------
+Asphalt8.exe+3ED558: C3                       - ret 
+Asphalt8.exe+3ED559: CC                       - int 3 
+Asphalt8.exe+3ED55A: CC                       - int 3 
+Asphalt8.exe+3ED55B: CC                       - int 3 
+Asphalt8.exe+3ED55C: CC                       - int 3 
+Asphalt8.exe+3ED55D: CC                       - int 3 
+Asphalt8.exe+3ED55E: CC                       - int 3 
+Asphalt8.exe+3ED55F: CC                       - int 3 
+Asphalt8.exe+3ED560: 48 8B 81 08 05 00 00     - mov rax,[rcx+00000508]
+Asphalt8.exe+3ED567: 48 89 02                 - mov [rdx],rax
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>27921</ID>
+              <Description>"Quick Car Animation In Main Menu"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+5F1467)
+define(bytes,8B 38 80 BB 50 01 00 00 00)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+5F1467)
+label(code)
+label(return)
+
+newmem:
+mov [rax],#2000
+mov [rax+08],#1500
+
+code:
+mov edi,[rax]
+cmp byte ptr [rbx+00000150],00
+jmp return
+
+address:
+jmp newmem
+nop 4
+return:
+
+[DISABLE]
+"Asphalt8.exe"+5F1467:
+db 8B 38 80 BB 50 01 00 00 00
+dealloc(newmem)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22568</ID>
+              <Description>"Try All"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF0080</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2083</ID>
+                  <Description>"Free Try All Cars"</Description>
+                  <Color>FF0080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+A22488)
+define(bytes,0F B6 50 52 84 D2)
+assert(address,bytes)
+alloc(newmem,$1000,"Asphalt8.exe"+A22488)
+label(code)
+label(return)
+
+define(address1,"Asphalt8.exe"+A2A9B3)
+define(bytes1,80 78 52 00 74 0A)
+assert(address1,bytes1)
+alloc(newmem1,$1000,"Asphalt8.exe"+A2A9B3)
+label(code1)
+label(return1)
+
+newmem:
+mov byte ptr [rax+52],1
+
+code:
+movzx edx,byte ptr [rax+52]
+test dl,dl
+jmp return
+
+address:
+jmp newmem
+nop
+return:
+
+newmem1:
+mov byte ptr [rax+52],01
+
+code1:
+cmp byte ptr [rax+52],00
+je Asphalt8.exe+9F30B3
+jmp return1
+
+address1:
+jmp newmem1
+nop
+return1:
+
+"Asphalt8.exe"+DBB2B5:
+db B0 01
+
+[DISABLE]
+"Asphalt8.exe"+A22488:
+db 0F B6 50 52 84 D2
+dealloc(newmem)
+
+"Asphalt8.exe"+A2A9B3:
+db 80 78 52 00 74 0A
+dealloc(newmem2)
+
+"Asphalt8.exe"+DBB2B5:
+db 30 C0
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>22096</ID>
+                  <Description>"Try All Helmets And Backgrounds"</Description>
+                  <Color>FF0080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+Asphalt8.exe+EF8087:
+db 90 90 90 90
+
+Asphalt8.exe+EF8037:
+db 90 90 90 90
+
+[DISABLE]
+Asphalt8.exe+EF8087:
+db 44 39 40 20
+
+Asphalt8.exe+EF8037:
+db 44 39 40 20
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>28642</ID>
+                  <Description>"Try All Avatars &amp; Outfits"</Description>
+                  <Color>FF0080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+define(address,"Asphalt8.exe"+23DF40)
+define(bytes,66 39 01 74 09)
+define(address1,"Asphalt8.exe"+23E130)
+define(bytes1,66 39 02 74 09)
+
+address:
+db 90 90 90 75   // Get All Outfits
+
+address1:
+db 90 90 90 75    // Get Avatars
+
+[DISABLE]
+"Asphalt8.exe"+23DF40:
+db 66 39 01 74
+
+"Asphalt8.exe"+23E130:
+db 66 39 02 74
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2146</ID>
+              <Description>"Skip All Showcase"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+Asphalt8.exe+12CF937:
+db 90 90
+
+[DISABLE]
+Asphalt8.exe+12CF937:
+db 7C 38
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1982</ID>
+              <Description>"RTX Graphics"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+147B1B8)
+define(bytes,8B 43 20 48 8B CB)
+
+address:
+db 90 90 90
+
+[DISABLE]
+Asphalt8.exe+147B1B8:
+db 8B 43 20
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>22092</ID>
+              <Description>"All Visible"</Description>
+              <Color>FF0080</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+define(address,Asphalt8.exe+DEDAD0)
+define(bytes,80 B9 B0 00 00 00 00)
+
+address:
+db 80 B9 B0 00 00 00 FF
+
+address+9:
+db 80 B9 B1 00 00 00 FF
+
+
+[DISABLE]
+Asphalt8.exe+DEDAD0:
+db 80 B9 B0 00 00 00 00
+
+Asphalt8.exe+DEDAD0+9:
+db 80 B9 B1 00 00 00 00
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29675</ID>
+      <Description>"Created by Merino"</Description>
+      <Options moHideChildren="1" moActivateChildrenAsWell="1"/>
+      <Color>800080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+
+// CT by
+{$lua}
+shellExecute("https://t.me/merino_miro")
+{$asm}
+ 
+[DISABLE]
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
